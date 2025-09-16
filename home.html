@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deva Nandhana - Web Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #827370;
+            overflow-y: auto;
+            position: relative;
+        }
+        .hero-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-left: 2%;
+            padding-top: 0%;
+            position: relative;
+        }
+        .main-title {
+            font-size: 8.5rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: white;
+            margin-bottom: 0.5rem;
+            margin-top: 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+        }
+        .subtitle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3.5rem;
+            margin-top: 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out 0.6s forwards;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: white;
+            margin-right: 24.5rem;
+            margin-bottom: 0;
+            margin-left: 0.9rem;
+        }
+        .tagline {
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: white;
+            margin-bottom: 0;
+            margin-left: 24rem;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            opacity: 0;
+            transform-origin: center;
+            animation: fadeInUpFromCenter 1.5s ease-out 1.2s forwards;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 100;
+        }
+        .nav-item {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: white;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 0.8rem 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-item:hover {
+            border-bottom: 2px solid white;
+            z-index: 2;
+        }
+        
+        /* Section base styles */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5% 10%;
+            position: relative;
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+        
+        /* About Section */
+        .about-section {
+            background: #4B4341;
+        }
+        .about-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .about-content {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            gap: 3rem;
+        }
+        .about-text {
+            flex: 1;
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .about-image-placeholder {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        /* Skills Section */
+        .skills-section {
+            background: #827370;
+        }
+        .skills-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* Skills Filter */
+        .skills-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0.6rem 1.2rem;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Skills Container */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        /* Skill Item */
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+        }
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0.5rem;
+        }
+        .skill-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+        }
+        .skill-name {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        /* Projects Section */
+        .projects-section {
+            background: #4B4341;
+        }
+        .projects-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .project-image {
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .project-info {
+            padding: 1.5rem;
+        }
+        .project-title {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .project-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: #827370;
+        }
+        .contact-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .contact-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-label {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .form-input, .form-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            padding: 0.8rem;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .submit-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 0.8rem 2rem;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+            margin-top: 1rem;
+        }
+        .submit-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .social-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Floating particles animation */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s infinite ease-in-out;
+        }
+        .particle:nth-child(1) { 
+            width: 4px; 
+            height: 4px; 
+            top: 20%; 
+            left: 15%; 
+            animation-delay: 0s; 
+        }
+        .particle:nth-child(2) { 
+            width: 6px; 
+            height: 6px; 
+            top: 60%; 
+            left: 80%; 
+            animation-delay: 2s; 
+        }
+        .particle:nth-child(3) { 
+            width: 3px; 
+            height: 3px; 
+            top: 80%; 
+            left: 20%; 
+            animation-delay: 4s; 
+        }
+        .particle:nth-child(4) { 
+            width: 5px; 
+            height: 5px; 
+            top: 30%; 
+            left: 70%; 
+            animation-delay: 1s; 
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg); 
+                opacity: 0.8;
+            }
+        }
+        @keyframes fadeInUpFromCenter {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, 0);
+            }
+        }
+        
+        /* Section animation classes */
+        .section.fade-in-up {
+            transform: translateY(50px);
+        }
+        .section.fade-in-down {
+            transform: translateY(-50px);
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-title {
+                font-size: 7rem;
+            }
+            .subtitle, .tagline {
+                font-size: 1.1rem;
+            }
+            .subtitle {
+                margin-right: 15rem;
+            }
+            .tagline {
+                margin-left: 15rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .main-title {
+                font-size: 6rem;
+            }
+            .subtitle, .tagline {
+                font-size: 1rem;
+            }
+            .subtitle {
+                margin-right: 10rem;
+            }
+            .tagline {
+                margin-left: 10rem;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+            .about-image-placeholder {
+                width: 250px;
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-container {
+                padding-left: 5%;
+                padding-top: 3%;
+            }
+            
+            .main-title {
+                font-size: 4.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .subtitle-container {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+                margin-left: 0;
+            }
+            
+            .divider {
+                display: none;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+                margin-left: 0;
+            }
+            
+            .navigation {
+                bottom: 5%;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-wrap: nowrap;
+                padding: 0.4rem 0.8rem;
+                border-radius: 25px;
+            }
+            
+            .nav-item {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .about-title, .skills-title, .projects-title, .contact-title {
+                font-size: 2.5rem;
+            }
+            
+            .skills-filter {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            
+            .skill-item {
+                height: 100px;
+                padding: 1rem;
+            }
+            
+            .skill-name {
+                font-size: 1rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .main-title {
+                font-size: 3.5rem;
+            }
+            
+            .navigation {
+                padding: 0.3rem 0.6rem;
+            }
+            
+            .nav-item {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.8rem;
+            }
+            
+            .section {
+                padding: 8% 5%;
+            }
+            
+            .about-title, .skills-title, .projects-title, .contact-title {
+                font-size: 2rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .skill-item {
+                height: 90px;
+                padding: 0.8rem;
+            }
+            
+            .skill-name {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <div class="hero-container">
+        <h1 class="main-title">DEVA NANDHANA</h1>
+        <div class="subtitle-container">
+            <p class="subtitle">WEB DEVELOPER</p>
+            <div class="divider"></div>
+            <p class="tagline">BLENDING CREATIVITY WITH LOGIC</p>
+        </div>
+    </div>
+    
+    <!-- About Section -->
+    <section id="about" class="section about-section fade-in-up">
+        <h2 class="about-title">ABOUT ME</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hello! I'm Deva Nandhana, a passionate upcoming web developer and an AI/ML
+                enthusiast with a keen eye for design and a love for creating seamless user experiences.
+                With expertise in front-end and continuos earning of back-end technologies, 
+                I bring ideas to life through clean, efficient code.</p>
+                <br>
+                <p>I'm someone who likes to do stuff creatively. With my knowldge in both AI/ML and Web developing,
+                    I like to create applications that solve real-world problems and are also aesthetically pleasing. </p>
+            </div>
+            <div class="about-image">
+                <div class="about-image-placeholder">
+                    Profile Image
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section fade-in-up">
+        <h2 class="skills-title">MY SKILLS</h2>
+        
+        <!-- Skills Filter -->
+        <div class="skills-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="programming">Programming Languages</button>
+            <button class="filter-btn" data-filter="frontend">Frontend Development</button>
+            <button class="filter-btn" data-filter="dataviz">Data Visualization & Analytics</button>
+            <button class="filter-btn" data-filter="devops">DevOps & Tools</button>
+            <button class="filter-btn" data-filter="databases">Databases</button>
+        </div>
+        
+        <!-- Skills Container -->
+        <div class="skills-container">
+            <!-- Programming Languages -->
+            <div class="skill-item" data-category="programming">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">C</div>
+            </div>
+            <div class="skill-item" data-category="programming">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 1.858-.895 3.469-2.164 4.8-1.27 1.332-2.965 2.11-4.76 2.11-1.795 0-3.49-.778-4.76-2.11-1.27-1.331-1.995-2.942-2.164-4.8h13.848zm-5.568 8.64c-1.795 0-3.49-.778-4.76-2.11-1.27-1.331-1.995-2.942-2.164-4.8h13.848c-.169 1.858-.895 3.469-2.164 4.8-1.27 1.332-2.965 2.11-4.76 2.11z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Python</div>
+            </div>
+            <div class="skill-item" data-category="programming">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.992c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.821M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.61-.477 3.61-.477s-.635.272-1.095.586c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.781-.891 3.781-.891M17.127 17.42c4.503-2.34 2.421-4.589.967-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.927 4.562 0-.001.069-.063.09-.12M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.092-.888 4.853-.001 6.868-2.274-2.05-3.943-3.853-2.824-5.532 1.644-2.469 6.197-3.668 5.19-7.666M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.689-8.239.609-10.937.167 0-.001.553.457 3.393.64"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Java</div>
+            </div>
+            
+            <!-- Frontend Development -->
+            <div class="skill-item" data-category="frontend">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">HTML</div>
+            </div>
+            <div class="skill-item" data-category="frontend">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">CSS</div>
+            </div>
+            <div class="skill-item" data-category="frontend">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">JavaScript</div>
+            </div>
+            <div class="skill-item" data-category="frontend">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Tailwind</div>
+            </div>
+            <div class="skill-item" data-category="frontend">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.36-.034-.47 0-.92.014-1.36.034.44-.572.895-1.096 1.36-1.564zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.36.034.47 0 .92-.014 1.36-.034-.44.572-.895 1.095-1.36 1.563-.455-.468-.91-.991-1.36-1.563z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">React</div>
+            </div>
+            
+            <!-- Data Visualization & Analytics -->
+            <div class="skill-item" data-category="dataviz">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.16c5.423 0 9.84 4.417 9.84 9.84 0 5.423-4.417 9.84-9.84 9.84-5.423 0-9.84-4.417-9.84-9.84 0-5.423 4.417-9.84 9.84-9.84zm0 1.68c4.48 0 8.16 3.68 8.16 8.16s-3.68 8.16-8.16 8.16-8.16-3.68-8.16-8.16 3.68-8.16 8.16-8.16zm0 1.68c3.52 0 6.48 2.96 6.48 6.48s-2.96 6.48-6.48 6.48-6.48-2.96-6.48-6.48 2.96-6.48 6.48-6.48zm0 1.68c2.64 0 4.8 2.16 4.8 4.8s-2.16 4.8-4.8 4.8-4.8-2.16-4.8-4.8 2.16-4.8 4.8-4.8z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Tableau</div>
+            </div>
+            <div class="skill-item" data-category="dataviz">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.52 23.273v-7.045h3.7l.6-3.857h-4.3v-2.467c0-1.055.293-1.775 1.807-1.775l1.932-.001V4.43c-.334-.044-1.48-.143-2.815-.143-2.786 0-4.693 1.7-4.693 4.822v2.844H4.431v3.857h3.82v7.045h3.269z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Power BI</div>
+            </div>
+            
+            <!-- DevOps & Tools -->
+            <div class="skill-item" data-category="devops">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                </div>
+                <div class="skill-name">GitHub</div>
+            </div>
+            <div class="skill-item" data-category="devops">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.983 11.078h2.119a.186.186 0 0 1 .186.186v2.827a.186.186 0 0 1-.186.186h-2.119a.186.186 0 0 1-.186-.186v-2.827a.186.186 0 0 1 .186-.186m-2.954 0h2.119a.186.186 0 0 1 .186.186v2.827a.186.186 0 0 1-.186.186h-2.119a.186.186 0 0 1-.186-.186v-2.827a.186.186 0 0 1 .186-.186m-2.954 0h2.119a.186.186 0 0 1 .186.186v2.827a.186.186 0 0 1-.186.186H8.075a.186.186 0 0 1-.186-.186v-2.827a.186.186 0 0 1 .186-.186m-2.954 0h2.119a.186.186 0 0 1 .186.186v2.827a.186.186 0 0 1-.186.186H5.121a.186.186 0 0 1-.186-.186v-2.827a.186.186 0 0 1 .186-.186M23.763 9.89v9.326a1.86 1.86 0 0 1-1.857 1.857H2.094A1.86 1.86 0 0 1 .237 19.216V9.89c0-.498.199-.976.552-1.329l9.326-9.326a1.86 1.86 0 0 1 2.629 0l9.326 9.326c.353.353.552.831.552 1.329m-1.3 0a.558.558 0 0 0-.166-.398l-9.326-9.326a.558.558 0 0 0-.789 0L2.856 9.492a.558.558 0 0 0-.166.398v9.326c0 .308.25.558.558.558h19.812a.558.558 0 0 0 .558-.558z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">Docker</div>
+            </div>
+            
+            <!-- Databases -->
+            <div class="skill-item" data-category="databases">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.16c5.423 0 9.84 4.417 9.84 9.84 0 5.423-4.417 9.84-9.84 9.84-5.423 0-9.84-4.417-9.84-9.84 0-5.423 4.417-9.84 9.84-9.84zm0 1.68c4.48 0 8.16 3.68 8.16 8.16s-3.68 8.16-8.16 8.16-8.16-3.68-8.16-8.16 3.68-8.16 8.16-8.16zm0 1.68c3.52 0 6.48 2.96 6.48 6.48s-2.96 6.48-6.48 6.48S5.52 15.52 5.52 12 8.48 5.52 12 5.52zm0 1.68c2.64 0 4.8 2.16 4.8 4.8s-2.16 4.8-4.8 4.8-4.8-2.16-4.8-4.8 2.16-4.8 4.8-4.8z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">MySQL</div>
+            </div>
+            <div class="skill-item" data-category="databases">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.16c5.423 0 9.84 4.417 9.84 9.84 0 5.423-4.417 9.84-9.84 9.84-5.423 0-9.84-4.417-9.84-9.84 0-5.423 4.417-9.84 9.84-9.84zm0 1.68c4.48 0 8.16 3.68 8.16 8.16s-3.68 8.16-8.16 8.16-8.16-3.68-8.16-8.16 3.68-8.16 8.16-8.16zm0 1.68c3.52 0 6.48 2.96 6.48 6.48s-2.96 6.48-6.48 6.48S5.52 15.52 5.52 12 8.48 5.52 12 5.52zm0 1.68c1.76 0 3.12 1.36 3.12 3.12s-1.36 3.12-3.12 3.12S8.88 13.76 8.88 12 10.24 8.88 12 8.88z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">PostgreSQL</div>
+            </div>
+            <div class="skill-item" data-category="databases">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.193 9.197c0-1.054.832-1.917 1.854-1.917 1.022 0 1.854.863 1.854 1.917s-.832 1.917-1.854 1.917c-1.022 0-1.854-.863-1.854-1.917zm-1.932 0c0 2.16 1.697 3.917 3.786 3.917s3.786-1.757 3.786-3.917-1.697-3.917-3.786-3.917-3.786 1.757-3.786 3.917zM6.614 9.197c0-1.054.832-1.917 1.854-1.917 1.022 0 1.854.863 1.854 1.917s-.832 1.917-1.854 1.917c-1.022 0-1.854-.863-1.854-1.917zm-1.932 0c0 2.16 1.697 3.917 3.786 3.917s3.786-1.757 3.786-3.917-1.697-3.917-3.786-3.917-3.786 1.757-3.786 3.917zm13.511 5.417c0-1.054.832-1.917 1.854-1.917 1.022 0 1.854.863 1.854 1.917s-.832 1.917-1.854 1.917c-1.022 0-1.854-.863-1.854-1.917zm-1.932 0c0 2.16 1.697 3.917 3.786 3.917s3.786-1.757 3.786-3.917-1.697-3.917-3.786-3.917-3.786 1.757-3.786 3.917zm-9.647 0c0-1.054.832-1.917 1.854-1.917 1.022 0 1.854.863 1.854 1.917s-.832 1.917-1.854 1.917c-1.022 0-1.854-.863-1.854-1.917zm-1.932 0c0 2.16 1.697 3.917 3.786 3.917s3.786-1.757 3.786-3.917-1.697-3.917-3.786-3.917-3.786 1.757-3.786 3.917zm4.823-5.417c0-1.054.832-1.917 1.854-1.917 1.022 0 1.854.863 1.854 1.917s-.832 1.917-1.854 1.917c-1.022 0-1.854-.863-1.854-1.917zm-1.932 0c0 2.16 1.697 3.917 3.786 3.917s3.786-1.757 3.786-3.917-1.697-3.917-3.786-3.917-3.786 1.757-3.786 3.917z"/>
+                    </svg>
+                </div>
+                <div class="skill-name">MongoDB</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section fade-in-up">
+        <h2 class="projects-title">MY PROJECTS</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-image">Project Image</div>
+                <div class="project-info">
+                    <h3 class="project-title">E-Commerce Platform</h3>
+                    <p class="project-description">A full-featured e-commerce platform with user authentication, payment processing, and admin dashboard.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">Project Image</div>
+                <div class="project-info">
+                    <h3 class="project-title">Task Management App</h3>
+                    <p class="project-description">A collaborative task management application with real-time updates and team collaboration features.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">Project Image</div>
+                <div class="project-info">
+                    <h3 class="project-title">Weather Dashboard</h3>
+                    <p class="project-description">An interactive weather dashboard that provides detailed forecasts and weather maps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section fade-in-up">
+        <h2 class="contact-title">GET IN TOUCH</h2>
+        <div class="contact-container">
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea id="message" class="form-textarea" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-link">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/yourprofile" target="_blank" class="social-link">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <nav class="navigation">
+        <div class="nav-item" onclick="scrollToSection('about')">About</div>
+        <div class="nav-item" onclick="scrollToSection('skills')">Skills</div>
+        <div class="nav-item" onclick="scrollToSection('projects')">Projects</div>
+        <div class="nav-item" onclick="scrollToSection('contact')">Contact</div>
+    </nav>
+    
+    <script>
+        // Track scroll direction
+        let lastScrollPosition = 0;
+        let scrollDirection = 'down';
+        let isScrollingProgrammatically = false;
+        
+        // Smooth scrolling function with animation trigger
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Set flag to indicate programmatic scrolling
+                isScrollingProgrammatically = true;
+                
+                // Determine scroll direction based on current position vs target position
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                const targetPosition = section.offsetTop;
+                
+                if (targetPosition < currentScroll) {
+                    scrollDirection = 'up';
+                } else {
+                    scrollDirection = 'down';
+                }
+                
+                // Scroll to the section
+                section.scrollIntoView({ behavior: 'smooth' });
+                
+                // Manually trigger the animation for the section
+                setTimeout(() => {
+                    // Remove both animation classes first
+                    section.classList.remove('fade-in-up', 'fade-in-down');
+                    
+                    // Add the appropriate animation class based on scroll direction
+                    if (scrollDirection === 'down') {
+                        section.classList.add('fade-in-up');
+                    } else {
+                        section.classList.add('fade-in-down');
+                    }
+                    
+                    // Add visible class to trigger animation
+                    section.classList.add('visible');
+                    
+                    // Reset the flag after a short delay
+                    setTimeout(() => {
+                        isScrollingProgrammatically = false;
+                    }, 1000);
+                }, 300); // Small delay to ensure scroll has started
+            } else {
+                console.log(`Section ${sectionId} not found`);
+            }
+        }
+        
+        // Skills filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide skill items based on filter
+                    skillItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+        
+        // Add subtle mouse movement effect
+        document.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.5;
+                const xPos = x * speed;
+                const yPos = y * speed;
+                
+                particle.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            });
+        });
+        
+        // Add loading animation trigger
+        window.addEventListener('load', () => {
+            document.body.style.overflow = 'auto';
+            
+            // Optional: Remove overflow hidden after animations complete
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+            }, 2000);
+        });
+        
+        // Track scroll direction
+        window.addEventListener('scroll', () => {
+            if (!isScrollingProgrammatically) {
+                const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (currentScrollPosition > lastScrollPosition) {
+                    scrollDirection = 'down';
+                } else {
+                    scrollDirection = 'up';
+                }
+                
+                lastScrollPosition = currentScrollPosition;
+            }
+        });
+        
+        // Intersection Observer for section animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isScrollingProgrammatically) {
+                    // Remove both animation classes first
+                    entry.target.classList.remove('fade-in-up', 'fade-in-down');
+                    
+                    // Add the appropriate animation class based on scroll direction
+                    if (scrollDirection === 'down') {
+                        entry.target.classList.add('fade-in-up');
+                    } else {
+                        entry.target.classList.add('fade-in-down');
+                    }
+                    
+                    // Add visible class to trigger animation
+                    entry.target.classList.add('visible');
+                } else if (!entry.isIntersecting) {
+                    // Remove visible class when section is out of view
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        // Handle form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // For demonstration purposes, just log the values
+            console.log('Form submitted:', { name, email, message });
+            
+            // Show a success message (in a real application, you would send the data to a server)
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset the form
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
