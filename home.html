@@ -16,6 +16,20 @@
             overflow-y: auto;
             position: relative;
         }
+
+        /* Section base styles */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5% 10%;
+            position: relative;
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
         .hero-container {
             min-height: 100vh;
             display: flex;
@@ -96,19 +110,6 @@
         .nav-item:hover {
             border-bottom: 2px solid white;
             z-index: 2;
-        }
-        
-        /* Section base styles */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 5% 10%;
-            position: relative;
-            opacity: 0;
-            transition: all 0.8s ease-out;
         }
         
         /* About Section */
