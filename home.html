@@ -35,7 +35,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: flex-start;
+            align-items: center;
             padding-left: 2%;
             padding-top: 0%;
             position: relative;
@@ -65,9 +65,9 @@
             font-weight: 500;
             letter-spacing: 0.08em;
             color: white;
-            margin-right: 24.5rem;
+            margin-right: 23.5rem;
             margin-bottom: 0;
-            margin-left: 0.9rem;
+            margin-left: 0rem;
         }
         .tagline {
             font-size: 1.3rem;
@@ -359,7 +359,33 @@
         .submit-button:hover {
             background: rgba(255, 255, 255, 0.3);
         }
-        
+
+        /* Modal Background */
+        .modal {
+            display: none; /* hidden by default */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal Box */
+        .modal-content {
+            background: #4B4341;
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
         /* Social Links */
         .social-links {
             display: flex;
@@ -815,25 +841,34 @@
     <section id="contact" class="section contact-section fade-in-up">
         <h2 class="contact-title">GET IN TOUCH</h2>
         <div class="contact-container">
-            <form class="contact-form" onsubmit="handleSubmit(event)">
+            <form class="contact-form" action="https://formspree.io/f/mqadvgve" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="name">Name</label>
-                    <input type="text" id="name" class="form-input" required>
+                    <input type="text" id="name" name="name" class="form-input" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
-                    <input type="email" id="email" class="form-input" required>
+                    <input type="email" id="email" name="email" class="form-input" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="message">Message</label>
-                    <textarea id="message" class="form-textarea" required></textarea>
+                    <textarea id="message" name="message" class="form-textarea" required></textarea>
                 </div>
                 <button type="submit" class="submit-button">Send Message</button>
             </form>
-            
-            <div class="social-links">
-                <a href="https://linkedin.com/in/devanandhana-p-s" target="_blank" class="social-link">
-                    <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+        </div>
+
+    <!-- Custom Notification Modal -->
+    <div id="thankyouModal" class="modal">
+        <div class="modal-content">
+            <p>✅ Thank you for contacting me... Will reach out as soon as possible.</p>
+            <button id="closeModal" class="submit-button">OK</button>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <a href="https://linkedin.com/in/devanandhana-p-s" target="_blank" class="social-link">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                     </svg>
                     LinkedIn
@@ -933,6 +968,33 @@
                 });
             });
         });
+
+        const form = document.querySelector(".contact-form");
+        const modal = document.getElementById("thankyouModal");
+        const closeModal = document.getElementById("closeModal");
+
+        form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // stop page reload
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            form.reset(); // clear fields
+            modal.style.display = "flex"; // show modal
+        } else {
+            alert("❌ Failed to send. Please try again.");
+        }
+        });
+
+        // Close modal when OK clicked
+        closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+        });
         
         // Add subtle mouse movement effect
         document.addEventListener('mousemove', (e) => {
@@ -1010,25 +1072,6 @@
                 observer.observe(section);
             });
         });
-        
-        // Handle form submission
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // For demonstration purposes, just log the values
-            console.log('Form submitted:', { name, email, message });
-            
-            // Show a success message (in a real application, you would send the data to a server)
-            alert('Thank you for your message! I will get back to you soon.');
-            
-            // Reset the form
-            event.target.reset();
-        }
     </script>
 </body>
 </html>
