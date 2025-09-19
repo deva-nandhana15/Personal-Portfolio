@@ -154,6 +154,24 @@
             font-size: 1.2rem;
             text-align: center;
         }
+        .resume-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2); /* your theme color */
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .resume-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
         
         /* Skills Section */
         .skills-section {
@@ -690,7 +708,10 @@
                 <br>
                 <p>I'm someone who likes to do stuff creatively. With my knowldge in both AI/ML and Web developing,
                     I like to create applications that solve real-world problems and are also aesthetically pleasing. </p>
-            </div>
+                <a href="assets/resume/Deva_Resume.pdf" download class="resume-button">
+                    Download Resume
+                </a>
+            </div>  
             <div class="about-image">
                 <div class="about-image-placeholder">
                     Profile Image
